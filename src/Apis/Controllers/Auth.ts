@@ -12,9 +12,9 @@ const authValid = async(req : Request, res : Response) =>{
         if( response === false){
             res.status(202).json({})
         }else{
-            //유효한 이메일이 존재하지 않는다.
-            res.status(202).json({
-                id : response.id
+            res.status(200).json({
+                id : response.id,
+                name : response.name
             })
         }
     }catch(e){

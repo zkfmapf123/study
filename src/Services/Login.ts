@@ -17,7 +17,7 @@ class Login extends Repository implements IUsersFunc{
         try{
             this.dbConn = await pool.getConnection();
             try{
-                const [row] = await this.dbConn.query(`select id from Users where email = ?`,[email]);
+                const [row] = await this.dbConn.query(`select id,nickName from Users where email = ?`,[email]);
                 await this.dbConn.release();
                 return row[0];
             }catch(e){
