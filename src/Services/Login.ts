@@ -13,12 +13,29 @@ class Login extends Repository implements IUsersFunc{
         super();
     }
 
-    public async authValid ({email, password}:TValidUser): Promise<boolean>{
+    private async findUserId(email : string) : Promise<any>{
+        try{
+            this.dbConn = await pool.getConnection();
+            try{
+                const [row] = await this.dbConn.query(`select id from Users where email = ?`,[email]);
+                await this.dbConn.release();
+                return row[0];
+            }catch(e){
+                await this.dbConn.release();
+                logger.error(`findUserId error : ${e}`);
+                console.error(e);
+            }
+        }catch(e){
+            console.error(e);
+        }
+    }
+
+    public async authValid ({email, password}:TValidUser): Promise<any>{
         try{   
             const response = await this.validEmail(email);
             if(response !== true)
                 if(await bcrypt.compare(password, response.password))
-                    return true;
+                    return await this.findUserId(email);
                     
             //유효한 이메일이 아니거나, 비밀번호가 맞지 않는다.
             return false;

@@ -8,11 +8,14 @@ const login : Login = new Login();
 const authValid = async(req : Request, res : Response) =>{
     try{
         user = req.body;
-        if(await login.authValid({email : user.email, password : user.password})){
-            res.status(200).json({})
+        const response = await login.authValid({email : user.email, password : user.password});
+        if( response === false){
+            res.status(202).json({})
         }else{
             //유효한 이메일이 존재하지 않는다.
-            res.status(202).json({})
+            res.status(202).json({
+                id : response.id
+            })
         }
     }catch(e){
         console.error(e);
