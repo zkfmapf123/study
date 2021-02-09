@@ -14,7 +14,7 @@ const authValid = async(req : Request, res : Response) =>{
         }else{
             res.status(200).json({
                 id : response.id,
-                name : response.name
+                name : response.nickName
             })
         }
     }catch(e){

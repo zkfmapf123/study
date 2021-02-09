@@ -57,15 +57,15 @@ export interface IUsersFunc{
 
 export interface ITodo{
     getData({id, cur_date} : TTodo) : Promise<any>;
-    addTodo({id, cur_date, todo} : TTodo) : Promise<void>;
-    checkTodo({id, cur_date, todo} : TTodo) : Promise<void>;
-    delTodo({id, cur_date, todo} : TTodo) : Promise<void>;
+    addTodo({id, cur_date, todo} : TTodo) : Promise<any>;
+    checkTodo({id, cur_date, todo} : TTodo) : Promise<any>;
+    delTodo({id, cur_date, todo} : TTodo) : Promise<any>;
 }
 
 export interface IToday{
     getData({id, cur_date} : TToday) : Promise<any>;
-    addToday({id, cur_date, today, today_time} : TToday) : Promise<void>;
-    delToday({id, cur_date, today, today_time} : TToday) : Promise<void>;
+    addToday({id, cur_date, today, today_time} : TToday) : Promise<any>;
+    delToday({id, cur_date, today, today_time} : TToday) : Promise<any>;
 }
 
 export interface IStudyFunc{

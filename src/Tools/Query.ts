@@ -4,6 +4,7 @@ export const AUTH_REGISTER = "insert into Users(email, nickName, password, salt)
 
 //home
 export const TODOS = "call proc_todo(?,?)";
+export const TODO_RATIO = "call proc_todo_ratio(?,?)";
 export const TODAYS ="call proc_today(?,?)";
 export const ADD_TODO = "insert into User_todo_list(users_id, cur_date, todo) values(?,?,?)";
 export const CHECK_TODO = "update User_todo_list set isChecked = !isChecked where users_id = ? and todo = ? and cur_date = ?";

@@ -12,7 +12,7 @@ export type TRegisterUser={
 export type TTodo={
     id : string;
     cur_date : string;
-    todo ?: string;
+    todos ?: string;
 }
 
 export type TToday={

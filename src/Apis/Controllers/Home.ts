@@ -6,17 +6,18 @@ import {IHome, ITodayReaction, ITodoReaction} from "../../Tools/Interfaces";
 let homeItem : IHome;
 let todoItem : ITodoReaction;
 let todayItem : ITodayReaction;
-const todos : Todo = new Todo();
-const todays : Today = new Today(); 
+const TodayTodo : Todo = new Todo();
+const TodayToday : Today = new Today(); 
 
 const home = async(req : Request, res :Response) =>{
     try{
         homeItem = req.body;
-        const todoAarr = await todos.getData({id : homeItem.id, cur_date : homeItem.cur_date});
-        const todayArr = await todays.getData({id : homeItem.id, cur_date : homeItem.cur_date});
+        const {todo, ratio} = await TodayTodo.getData({id : homeItem.id, cur_date : homeItem.cur_date});
+        const todayArr = await TodayToday.getData({id : homeItem.id, cur_date : homeItem.cur_date});
 
         return res.status(200).json({
-            todo : todoAarr,
+            todo : todo[0],
+            ratio : ratio[0],
             today : todayArr
         });
     }catch(e){
@@ -25,17 +26,28 @@ const home = async(req : Request, res :Response) =>{
 };
 
 const todo = async(req : Request, res : Response) =>{
+    let todos : any;
+    let ratios : any;
     try{
         todoItem = req.body;
         if(todoItem.method === "add"){
-            await todos.addTodo({id : todoItem.id, cur_date : todoItem.cur_date, todo : todoItem.todo});
+            const {todo, ratio} = await TodayTodo.addTodo({id : todoItem.id, cur_date : todoItem.cur_date, todos : todoItem.todo});
+            todos = todo;
+            ratios = ratio;
         }else if(todoItem.method === "check"){  
-            await todos.checkTodo({id : todoItem.id, cur_date : todoItem.cur_date, todo : todoItem.todo});
+            const {todo, ratio} = await TodayTodo.checkTodo({id : todoItem.id, cur_date : todoItem.cur_date, todos : todoItem.todo});
+            todos = todo;
+            ratios = ratio;
         }else{
-            await todos.delTodo({id : todoItem.id, cur_date : todoItem.cur_date, todo : todoItem.todo});
+            const {todo, ratio} = await TodayTodo.delTodo({id : todoItem.id, cur_date : todoItem.cur_date, todos : todoItem.todo});
+            todos = todo;
+            ratios = ratio;
         }
 
-        return res.status(200).json({});
+        return res.status(200).json({
+            todo : todos,
+            ratio : ratios
+        });
     }catch(e){
         console.error(e);
     }
@@ -43,15 +55,18 @@ const todo = async(req : Request, res : Response) =>{
 
 
 const today = async(req : Request, res :Response) =>{
+    let response : any;
     try{
         todayItem = req.body;
         if(todayItem.method === "add"){
-            await todays.addToday({id : todayItem.id, cur_date : todayItem.cur_date, today : todayItem.today, today_time : todayItem.today_time});
+            response = await TodayToday.addToday({id : todayItem.id, cur_date : todayItem.cur_date, today : todayItem.today, today_time : todayItem.today_time});
         }else{
-            await todays.delToday({id : todayItem.id, cur_date : todayItem.cur_date, today : todayItem.today, today_time : todayItem.today_time});
+            response = await TodayToday.delToday({id : todayItem.id, cur_date : todayItem.cur_date, today : todayItem.today, today_time : todayItem.today_time});
         }
 
-        return res.status(200).json({});
+        return res.status(200).json({
+            today : response
+        });
     }catch(e){
 
     }
