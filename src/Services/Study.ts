@@ -28,12 +28,16 @@ class Study extends Repository implements IStudyFunc{
         }
     }
 
-    public async addStudy({id , cur_date, standard, todo} : TStudy) : Promise<void>{
+    public async addStudy({id , cur_date, standard, todo} : TStudy) : Promise<any>{
         try{
             this.dbConn = await pool.getConnection();
             try{
                 await this.dbConn.query(`${STUDY_REGISTER}`,[id, cur_date, standard, todo]);
                 await this.dbConn.release();
+            
+                const response = await this.getData({id : id, cur_date : cur_date});
+                return response;
+
             }catch(e){
                 await this.dbConn.release();
                 logger.error(`addStudy error : ${e}`);
@@ -43,12 +47,15 @@ class Study extends Repository implements IStudyFunc{
         }
     }
 
-    public async deleteStudy({id , studyId,cur_date} : TStudy) : Promise<void>{
+    public async deleteStudy({id , studyId,cur_date} : TStudy) : Promise<any>{
         try{
             this.dbConn = await pool.getConnection();
             try{
                 await this.dbConn.query(`${STUDY_DELETE}`,[id, studyId]);
                 await this.dbConn.release();
+
+                const response = await this.getData({id : id, cur_date : cur_date});
+                return response;
             }catch(e){
                 await this.dbConn.release();
                 logger.error(`delete study error : ${e}`);
@@ -59,12 +66,15 @@ class Study extends Repository implements IStudyFunc{
         }
     }
 
-    public async addTime({id,studyId,cur_date, time} : TTime) : Promise<void>{
+    public async addTime({id,studyId,cur_date, time} : TTime) : Promise<any>{
         try{
             this.dbConn = await pool.getConnection();
             try{
                 await this.dbConn.query(`${TIME_ADD}`,[time, id, studyId]);
                 await this.dbConn.release();
+
+                const response = await this.getData({id : id, cur_date : cur_date});
+                return response;
             }catch(e){
                 await this.dbConn.release();
                 logger.error(`addTime error : ${e}`);
