@@ -38,8 +38,8 @@ describe("main화면 테스팅",()=>{
     //     supertest(TEST_SERVER).put("/api/todo")
     //     .send({
     //         id : TEST_USER_ID,
-    //         cur_date : TEST_CUR_DATE,
-    //         todo : "밥먹기",
+    //         cur_date: "00",
+    //         todoId : 1,
     //         method : "delete"
     //     })
     //     .end((err, res)=>{
@@ -52,8 +52,8 @@ describe("main화면 테스팅",()=>{
         supertest(TEST_SERVER).put("/api/todo")
         .send({
             id : TEST_USER_ID,
-            cur_date : TEST_CUR_DATE,
-            todo :"밥먹기",
+            cur_date: "00",
+            todoId : 1,
             method : "check"
         })
         .end((err, res)=>{
@@ -82,9 +82,7 @@ describe("main화면 테스팅",()=>{
         supertest(TEST_SERVER).put("/api/today")
         .send({
             id : TEST_USER_ID,
-            cur_date : TEST_CUR_DATE,
-            today : "밥먹기",
-            today_time : "0613",
+            todayId : 1,
             method : "delete"
         })
         .end((err, res)=>{

@@ -32,9 +32,11 @@ const studyRegister= async(req: Request, res : Response) =>{
 const studyDelete = async(req: Request, res : Response) =>{
     try{
         studyItem = req.body;
-        await studies.deleteStudy({id : studyItem.id, cur_date : studyItem.cur_date, standard : studyItem.standard, todo : studyItem.todo});
+        const response = await studies.deleteStudy({id : studyItem.id, studyId : studyItem.studyId, cur_date : studyItem.cur_date});
 
-        return res.status(200).json({});
+        return res.status(200).json({
+            study : response
+        });
     }catch(e){
         console.error(e);
     }
@@ -43,7 +45,10 @@ const studyDelete = async(req: Request, res : Response) =>{
 const timeAdd = async(req: Request, res : Response) =>{
     try{
         timeItem = req.body;
-        await studies.addTime({id : timeItem.id, cur_date : timeItem.cur_date, standard : timeItem.standard, todo : timeItem.todo, time : timeItem.time});
+        await studies.addTime({id : timeItem.id, 
+                               cur_date : timeItem.cur_date, 
+                               time : timeItem.time, 
+                               studyId: timeItem.studyId});
 
         return res.status(200).json({});
     }catch(e){

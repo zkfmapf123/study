@@ -21,7 +21,6 @@ describe("study 화면",()=>{
     //     supertest(SERVER_API).put("/api/study/register")
     //     .send({
     //         id : TEST_USER_ID,
-    //         cur_date : TEST_CUR_DATE,
     //         standard : "수학",
     //         todo : "쎈수학풀기"
     //     })
@@ -35,9 +34,7 @@ describe("study 화면",()=>{
     //     supertest(SERVER_API).delete("/api/study/delete")
     //     .send({
     //         id : TEST_USER_ID,
-    //         cur_date : TEST_CUR_DATE,
-    //         standard : "수학",
-    //         todo : "쎈수학풀기"
+    //         studyId : 1
     //     })
     //     .end((err ,res)=>{
     //         expect(res.status).to.be.eql(200);
@@ -49,9 +46,7 @@ describe("study 화면",()=>{
         supertest(SERVER_API).put("/api/study/timeAdd")
         .send({
             id : TEST_USER_ID,
-            cur_date : TEST_CUR_DATE,
-            standard : "수학",
-            todo : "쎈수학풀기",
+            studyId : 5,
             time : 1000
         })
         .end((err, res)=>{

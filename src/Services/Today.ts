@@ -48,11 +48,11 @@ class Today extends Repository implements IToday{
         }
     };
 
-    public async delToday({id, cur_date, today, today_time} : TToday) : Promise<any>{
+    public async delToday({id, cur_date, todayId} : TToday) : Promise<any>{
         try{
             this.dbConn = await pool.getConnection();
             try{
-                await this.dbConn.query(`${DEL_TODAY}`,[id, cur_date, today, today_time]);
+                await this.dbConn.query(`${DEL_TODAY}`,[id, todayId]);
                 await this.dbConn.release();
                 const [row] = await this.dbConn.query(`${TODAYS}`,[id, cur_date]);
                 return row[0];

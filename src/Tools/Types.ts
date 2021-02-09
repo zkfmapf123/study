@@ -11,20 +11,23 @@ export type TRegisterUser={
 
 export type TTodo={
     id : string;
-    cur_date : string;
+    todoId ?: string;
+    cur_date ?: string;
     todos ?: string;
 }
 
 export type TToday={
     id : string;
-    cur_date : string;
+    todayId ?: string;
+    cur_date ?: string;
     today ?: string;
     today_time ?: string;
 }
 
 export type TStudy = {
     id : string;
-    cur_date : string;
+    studyId ?: string;
+    cur_date ?: string;
     standard ?: TSubject
     todo ?: string;
 }
@@ -42,10 +45,9 @@ export type TStatistic={
 
 export type TTime={
     id : string;
-    cur_date : string;
-    standard : TSubject;
-    todo : string;
-    time : any;
+    studyId ?: string;
+    cur_date ?: string;
+    time ?: any;
 }
 
 export type THomeGiveMethod = "entire" | "todo" | "today";

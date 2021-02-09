@@ -59,11 +59,11 @@ class Todo extends Repository implements ITodo{
         }
     }
 
-    public async delTodo({id, cur_date, todos} : TTodo) : Promise<any>{
+    public async delTodo({id, cur_date, todoId} : TTodo) : Promise<any>{
         try{
             this.dbConn = await pool.getConnection();
             try{
-                await this.dbConn.query(`${DEL_TODO}`,[id, cur_date, todos]);
+                await this.dbConn.query(`${DEL_TODO}`,[id,todoId]);
                 await this.dbConn.release();
                 let {todo, ratio} =  await this.getData({id:id, cur_date : cur_date});
                 todo = todo[0];
@@ -80,11 +80,11 @@ class Todo extends Repository implements ITodo{
         }
     }
 
-    public async checkTodo({id ,cur_date,todos} : TTodo) : Promise<any>{
+    public async checkTodo({id ,cur_date,todoId} : TTodo) : Promise<any>{
         try{
             this.dbConn = await pool.getConnection();
             try{
-                await this.dbConn.query(`${CHECK_TODO}`,[id, todos, cur_date]);
+                await this.dbConn.query(`${CHECK_TODO}`,[id,todoId]);
                 await this.dbConn.release();
                 let {todo, ratio} =  await this.getData({id:id, cur_date : cur_date});
                 todo = todo[0];

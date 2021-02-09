@@ -35,11 +35,11 @@ const todo = async(req : Request, res : Response) =>{
             todos = todo;
             ratios = ratio;
         }else if(todoItem.method === "check"){  
-            const {todo, ratio} = await TodayTodo.checkTodo({id : todoItem.id, cur_date : todoItem.cur_date, todos : todoItem.todo});
+            const {todo, ratio} = await TodayTodo.checkTodo({id : todoItem.id, todoId : todoItem.todoId, cur_date : todoItem.cur_date});
             todos = todo;
             ratios = ratio;
         }else{
-            const {todo, ratio} = await TodayTodo.delTodo({id : todoItem.id, cur_date : todoItem.cur_date, todos : todoItem.todo});
+            const {todo, ratio} = await TodayTodo.delTodo({id : todoItem.id, todoId : todoItem.todoId, cur_date : todoItem.cur_date});
             todos = todo;
             ratios = ratio;
         }
@@ -61,7 +61,7 @@ const today = async(req : Request, res :Response) =>{
         if(todayItem.method === "add"){
             response = await TodayToday.addToday({id : todayItem.id, cur_date : todayItem.cur_date, today : todayItem.today, today_time : todayItem.today_time});
         }else{
-            response = await TodayToday.delToday({id : todayItem.id, cur_date : todayItem.cur_date, today : todayItem.today, today_time : todayItem.today_time});
+            response = await TodayToday.delToday({id : todayItem.id, todayId : todayItem.todayId, cur_date : todayItem.cur_date});
         }
 
         return res.status(200).json({

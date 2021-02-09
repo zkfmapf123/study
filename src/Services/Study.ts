@@ -43,11 +43,11 @@ class Study extends Repository implements IStudyFunc{
         }
     }
 
-    public async deleteStudy({id , cur_date, standard, todo} : TStudy) : Promise<void>{
+    public async deleteStudy({id , studyId,cur_date} : TStudy) : Promise<void>{
         try{
             this.dbConn = await pool.getConnection();
             try{
-                await this.dbConn.query(`${STUDY_DELETE}`,[id, cur_date, standard, todo]);
+                await this.dbConn.query(`${STUDY_DELETE}`,[id, studyId]);
                 await this.dbConn.release();
             }catch(e){
                 await this.dbConn.release();
@@ -59,11 +59,11 @@ class Study extends Repository implements IStudyFunc{
         }
     }
 
-    public async addTime({id , cur_date, standard, todo, time} : TTime) : Promise<void>{
+    public async addTime({id,studyId,cur_date, time} : TTime) : Promise<void>{
         try{
             this.dbConn = await pool.getConnection();
             try{
-                await this.dbConn.query(`${TIME_ADD}`,[time,id, cur_date, standard, todo]);
+                await this.dbConn.query(`${TIME_ADD}`,[time, id, studyId]);
                 await this.dbConn.release();
             }catch(e){
                 await this.dbConn.release();

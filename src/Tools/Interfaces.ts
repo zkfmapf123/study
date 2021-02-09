@@ -14,32 +14,34 @@ export interface IHome{
 
 export interface ITodoReaction{
     id : string;
-    cur_date : string;
-    todo : string;
-    method : TTodoGiveMethod;
+    todoId ?: string;
+    cur_date ?: string;
+    todo ?: string;
+    method ?: TTodoGiveMethod;
 }
 
 export interface ITodayReaction{
     id : string;
-    cur_date : string;
-    today : string;
-    today_time : string;
-    method : TTodayGiveMethod;
+    todayId ?: string;
+    cur_date ?: string;
+    today ?: string;
+    today_time ?: string;
+    method ?: TTodayGiveMethod;
 }
 
 export interface IStudy{
     id : string;
-    cur_date : string;
+    studyId ?: string;
+    cur_date ?: string;
     standard ?: TSubject;
     todo ?: string;
 }
 
 export interface ITime{
     id : string;
-    cur_date : string;
-    standard : TSubject;
-    todo : string;
-    time : any;
+    studyId ?: string;
+    cur_date ?: string;
+    time ?: any;
 }
 
 export interface IStatistic{
@@ -57,22 +59,22 @@ export interface IUsersFunc{
 
 export interface ITodo{
     getData({id, cur_date} : TTodo) : Promise<any>;
-    addTodo({id, cur_date, todo} : TTodo) : Promise<any>;
-    checkTodo({id, cur_date, todo} : TTodo) : Promise<any>;
-    delTodo({id, cur_date, todo} : TTodo) : Promise<any>;
+    addTodo({id, cur_date, todos} : TTodo) : Promise<any>;
+    checkTodo({id, todoId} : TTodo) : Promise<any>;
+    delTodo({id, todoId} : TTodo) : Promise<any>;
 }
 
 export interface IToday{
     getData({id, cur_date} : TToday) : Promise<any>;
     addToday({id, cur_date, today, today_time} : TToday) : Promise<any>;
-    delToday({id, cur_date, today, today_time} : TToday) : Promise<any>;
+    delToday({id, todayId} : TToday) : Promise<any>;
 }
 
 export interface IStudyFunc{
     getData({id, cur_date} : TStudy) : Promise<any>;
-    addStudy({id , cur_date, standard, todo} : TStudy) : Promise<void>;
-    deleteStudy({id ,cur_date, standard, todo} : TStudy) : Promise<void>;
-    addTime({id, cur_date, standard, todo, time} : TTime) : Promise<void>;
+    addStudy({id , cur_date, standard, todo} : TStudy) : Promise<any>;
+    deleteStudy({id ,studyId} : TStudy) : Promise<any>;
+    addTime({id, studyId, time} : TTime) : Promise<any>;
 }
 
 export interface IStatisticFunc{
