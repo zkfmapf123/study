@@ -35,10 +35,11 @@ const studyRegister= async(req: Request, res : Response) =>{
 const studyDelete = async(req: Request, res : Response) =>{
     try{
         studyItem = req.body;
-        const response = await studies.deleteStudy({id : studyItem.id, studyId : studyItem.studyId, cur_date : studyItem.cur_date});
-
+        const {row, times} = await studies.deleteStudy({id : studyItem.id, studyId : studyItem.studyId, cur_date : studyItem.cur_date});
+        
         return res.status(200).json({
-            study : response
+            study : row,
+            timeTotal : times
         });
     }catch(e){
         console.error(e);

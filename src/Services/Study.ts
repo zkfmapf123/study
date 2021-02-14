@@ -16,7 +16,7 @@ class Study extends Repository implements IStudyFunc{
            try{
                 let [row] = await this.dbConn.query(`${STUDIES}`,[id, cur_date]);
                 let times = await this.dbConn.query(`${TIME_TOTAL}`,[id, cur_date]);
-                
+
                 await this.dbConn.release();
                 if(this.isEmpty(row)){
                     row = [];
@@ -60,8 +60,8 @@ class Study extends Repository implements IStudyFunc{
                 await this.dbConn.query(`${STUDY_DELETE}`,[id, studyId]);
                 await this.dbConn.release();
 
-                const response = await this.getData({id : id, cur_date : cur_date});
-                return response;
+                const {row,times} = await this.getData({id : id, cur_date : cur_date});
+                return {row,times};
             }catch(e){
                 await this.dbConn.release();
                 logger.error(`delete study error : ${e}`);
@@ -96,7 +96,7 @@ class Study extends Repository implements IStudyFunc{
                 const yesTotal = await this.dbConn.query(`${TIME_TOTAL}`,[id, prevDate]);
                 const curArr = curTotal[0][0];
                 const yesArr = yesTotal[0][0];
-
+                await this.dbConn.release();
                 return {curArr, yesArr};
 
             }catch(e){
