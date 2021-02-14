@@ -21,6 +21,7 @@ describe("study 화면",()=>{
     //     supertest(SERVER_API).put("/api/study/register")
     //     .send({
     //         id : TEST_USER_ID,
+    //         cur_date : 0,
     //         standard : "수학",
     //         todo : "쎈수학풀기"
     //     })
@@ -34,7 +35,8 @@ describe("study 화면",()=>{
     //     supertest(SERVER_API).delete("/api/study/delete")
     //     .send({
     //         id : TEST_USER_ID,
-    //         studyId : 1
+    //         studyId : 1,
+    //         cur_date : "0"
     //     })
     //     .end((err ,res)=>{
     //         expect(res.status).to.be.eql(200);
@@ -50,6 +52,20 @@ describe("study 화면",()=>{
             time : 1000
         })
         .end((err, res)=>{
+            expect(res.status).to.be.eql(200);
+            done();
+        })
+    })
+
+    it("히스토리를 불러온다",(done)=>{
+        supertest(SERVER_API).post("/api/study/history")
+        .send({
+            id : TEST_USER_ID,
+            prevDate : "0",
+            nextDate : "1"
+        })
+        .end((err ,res)=>{
+            console.log(res.body);
             expect(res.status).to.be.eql(200);
             done();
         })

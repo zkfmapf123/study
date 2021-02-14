@@ -53,4 +53,4 @@ export type TTime={
 export type THomeGiveMethod = "entire" | "todo" | "today";
 export type TTodoGiveMethod = "add" | "check" | "delete";
 export type TTodayGiveMethod = "add" | "delete";
-export type TSubject = "국어" | "영어" | "수학" | "한국사" | "사/과/직" | "제2외국어/한문" | "기타";
+export type TSubject = "국어" | "영어" | "수학" | "한국사" | "사회/과학/직업탐구" | "한문/제2외국어" | "기타";

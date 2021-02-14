@@ -18,6 +18,7 @@ export const STUDIES = "call proc_study(?,?)";
 export const STUDY_REGISTER = "insert into User_study(users_id, cur_date, standard, todo) values(?,?,?,?)";
 export const STUDY_DELETE = "delete from User_study where users_id = ? and id = ?";
 export const TIME_ADD = "update User_study set study_time = ? where users_id = ? and id = ?";
+export const TIME_TOTAL = "call proc_study_total(?,?)";
 
 //statistic
 export const STATISTICS_BARCHART = "call proc_statistic_barChart(?,?,?)";

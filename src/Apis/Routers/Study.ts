@@ -14,4 +14,5 @@ export default(app : Router) =>{
     route.put("/register",studyController.studyRegister);
     route.delete("/delete",studyController.studyDelete);
     route.put("/timeAdd",studyController.timeAdd);
+    route.post("/history",studyController.history);
 }
