@@ -75,10 +75,12 @@ class Login extends Repository implements IUsersFunc{
                     await this.dbConn.release();
                     logger.error(`authRegister error : ${e}`);
                     console.error(e);
+                    return false;
                 }
+            }else{
+                return false;
             }
 
-            return false;
         }catch(e){
 
         }
