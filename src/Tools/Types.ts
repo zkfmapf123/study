@@ -50,6 +50,13 @@ export type TTime={
     time ?: any;
 }
 
+export type TadminReview = {
+    id : string;
+    review : TReview;
+    content : string;
+}
+
+export type TReview = "아이디어/공유" | "평가/리뷰" | "하고싶은 말";
 export type THomeGiveMethod = "entire" | "todo" | "today";
 export type TTodoGiveMethod = "add" | "check" | "delete";
 export type TTodayGiveMethod = "add" | "delete";

@@ -1,4 +1,4 @@
-import { TRegisterUser, TValidUser, THomeGiveMethod, TTodoGiveMethod, TTodayGiveMethod, TTodo, TToday, TSubject, TStudy, TTime, TStatistic } from "./Types";
+import { TRegisterUser, TValidUser, THomeGiveMethod, TTodoGiveMethod, TTodayGiveMethod, TTodo, TToday, TSubject, TStudy, TTime, TStatistic, TadminReview, TReview } from "./Types";
 
 export interface IUsers{
     email ?: string;
@@ -50,6 +50,12 @@ export interface IStatistic{
     nextDate : string;
 }
 
+export interface IReview{
+    id : string;
+    review : TReview;
+    content:  string;
+}
+
 export interface IUsersFunc{
     authValid({email , password} : TValidUser) : Promise<boolean>;
     authRegister({email , name, password} : TRegisterUser) : Promise<boolean>;
@@ -79,6 +85,10 @@ export interface IStudyFunc{
 
 export interface IStatisticFunc{
     getData({id , prevDate, nextDate} : TStatistic) : Promise<any>;
+}
+
+export interface IAdmin{
+    writeReview({id, review, content} : TadminReview): Promise<boolean>;
 }
 
 

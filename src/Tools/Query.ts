@@ -24,3 +24,6 @@ export const TIME_TOTAL = "call proc_study_total(?,?)";
 export const STATISTICS_BARCHART = "call proc_statistic_barChart(?,?,?)";
 export const STATISTICS_PIECHART = "call proc_statistic_pieChart(?,?,?)";
 export const STATISTICS_LIST = "call proc_statistic_list(?,?,?)";
+
+//admin
+export const ADMIN_REIVEW = "insert into Admin(userId, separate, content) values(?,?,?)";

@@ -12,6 +12,7 @@
     "testHome": "mocha --require ts-node/register --watch-extensions ts 'test/Home.ts'",
     "testStudy": "mocha --require ts-node/register --watch-extensions ts 'test/Study.ts'",
     "testStatistic": "mocha --require ts-node/register --watch-extensions ts 'test/Statistic.ts'",
+    "testAdmin": "mocha --require ts-node/register --watch-extensions ts 'test/Admin.ts'",
     "lint": "npm run lint:js"
   },
   "author": "",
