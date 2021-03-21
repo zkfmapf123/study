@@ -52,7 +52,7 @@ export interface IStatistic{
 
 export interface IReview{
     id : string;
-    review : TReview;
+    separate : TReview;
     content:  string;
 }
 
