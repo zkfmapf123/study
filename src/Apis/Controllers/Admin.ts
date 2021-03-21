@@ -10,7 +10,7 @@ const adminReview = async(req: Request, res : Response) =>{
 
         return (await admin.writeReview({
             id : user.id,
-            review: user.review,
+            review: user.separate,
             content: user.content
         })) ? 
         res.status(200).json({}) : res.status(202).json({});
