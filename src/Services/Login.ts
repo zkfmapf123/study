@@ -16,17 +16,13 @@ class Login extends Repository implements IUsersFunc{
     private async findUserId(email : string) : Promise<any>{
         try{
             this.dbConn = await pool.getConnection();
-            try{
-                const [row] = await this.dbConn.query(`select id,nickName from Users where email = ?`,[email]);
-                await this.dbConn.release();
-                return row[0];
-            }catch(e){
-                await this.dbConn.release();
-                logger.error(`findUserId error : ${e}`);
-                console.error(e);
-            }
+            const [row] = await this.dbConn.query(`select id,nickName from Users where email = ?`,[email]);
+            return row[0];
         }catch(e){
-            console.error(e);
+            logger.error(`findUserId error : ${e}`);
+            return [];
+        }finally{
+            await this.dbConn.release();
         }
     }
 
@@ -47,18 +43,15 @@ class Login extends Repository implements IUsersFunc{
     public async validEmail(email : string) : Promise<any>{
         try{
             this.dbConn = await pool.getConnection();
-            try{
-                const [row] = await this.dbConn.query(`${AUTH_VALID}`,[email]);
-                await this.dbConn.release();
-                if(this.isEmpty(row)) return true;
-                else return row[0];
-            }catch(e){
-                await this.dbConn.release();
-                logger.error(`validEamil error : ${e}`);
-                console.error(e);
-            }
+            const [row] = await this.dbConn.query(`${AUTH_VALID}`,[email]);
+            
+            if(this.isEmpty(row)) return true;
+            else return row[0];
         }catch(e){
-            console.error(e);
+            logger.error(`validEamil error : ${e}`);
+            return [];
+        }finally{
+            await this.dbConn.release();
         }
     }
 
@@ -66,23 +59,18 @@ class Login extends Repository implements IUsersFunc{
         try{
             if(await this.validEmail(email)){
                 this.dbConn = await pool.getConnection();
-                try{
-                    const {hash, salt} = await this.bcryptFunc(password);
-                    await this.dbConn.query(`${AUTH_REGISTER}`,[email, name, hash, salt]);
-                    await this.dbConn.release();
-                    return true;
-                }catch(e){ 
-                    await this.dbConn.release();
-                    logger.error(`authRegister error : ${e}`);
-                    console.error(e);
-                    return false;
-                }
-            }else{
-                return false;
-            }
+                const {hash, salt} = await this.bcryptFunc(password);
+                await this.dbConn.query(`${AUTH_REGISTER}`,[email, name, hash, salt]);
+                await this.dbConn.release();
+                return true;
+            }else return false;
 
         }catch(e){
-
+            await this.dbConn.release();
+            logger.error(`authRegister error :${e}`);
+            return false;
+        }finally{
+            await this.dbConn.release();
         }
     }
 

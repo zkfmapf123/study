@@ -12,15 +12,13 @@ class Statistc extends Repository implements IStatisticFunc{
     }
 
     public async getData({id, prevDate, nextDate} : TStatistic) : Promise<any>{
-        try{
-            this.dbConn = await pool.getConnection();
             try{
+                this.dbConn = await pool.getConnection();
                 let chart : Array<any> = new Array<any>(3);
                 chart[0] = await this.dbConn.query(`${STATISTICS_BARCHART}`,[id, prevDate, nextDate]);
                 chart[1] = await this.dbConn.query(`${STATISTICS_PIECHART}`,[id, prevDate, nextDate]);
                 chart[2] = await this.dbConn.query(`${STATISTICS_LIST}`,[id, prevDate, nextDate]);
 
-                await this.dbConn.release();
                 for(let i in chart){
                     if(this.isEmpty(chart[i][0][0])) chart[i] = 0;
                     else chart[i] = chart[i][0][0];
@@ -28,13 +26,10 @@ class Statistc extends Repository implements IStatisticFunc{
 
                 return {chart};
             }catch(e){
-                await this.dbConn.release();
                 logger.error(`statistic getData error : ${e}`);
-                console.error(e);
+            }finally{
+                await this.dbConn.release();
             }
-        }catch(e){
-            console.error(e);
-        }
     }
 };
 
