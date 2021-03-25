@@ -6,12 +6,12 @@ const admin : Admin = new Admin();
 
 const adminReview = async(req: Request, res : Response) =>{
     try{
-        const user : IReview = req.body;
+        const {id, separate, content} : IReview = req.body;
 
         return (await admin.writeReview({
-            id : user.id,
-            review: user.separate,
-            content: user.content
+            id : id,
+            review: separate,
+            content: content
         })) ? 
         res.status(200).json({}) : res.status(202).json({});
     }catch(e){

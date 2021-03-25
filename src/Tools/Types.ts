@@ -52,7 +52,7 @@ export type TTime={
 
 export type TadminReview = {
     id : string;
-    review : TReview;
+    separate : TReview;
     content : string;
 }
 

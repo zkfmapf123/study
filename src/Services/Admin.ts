@@ -10,11 +10,11 @@ class Admin extends Repository implements IAdmin{
         super();
     }
     
-    async writeReview({ id, review, content }: TadminReview): Promise<boolean> {
+    async writeReview({ id, separate, content }: TadminReview): Promise<boolean> {
         try{
             this.dbConn = await pool.getConnection();
             await this.dbConn.query(`${ADMIN_REIVEW}`,
-            [id, review, content]);
+            [id, separate, content]);
 
             return true;
         }catch(e){
