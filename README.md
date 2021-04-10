@@ -8,11 +8,15 @@
 ```
 
 ## 1. Architecture
-
+![servd](https://user-images.githubusercontent.com/47292546/114265133-16fe4a80-9a2a-11eb-8e19-d3102c534fc4.PNG)
 
 ## 2. nodejs
+<a href="https://blog.naver.com/zkfmapf123/222146785347">왜? nodejs를 사용하였나?(네이버 블로그)</a>
 
 ## 3. TDD를 이용한 개발
+<a href="https://blog.naver.com/zkfmapf123/222146785347">왜? tdd를 도입하였나?(네이버 블로그)</a>
+
+
 
 ## 4. Business로직의 분리
 
