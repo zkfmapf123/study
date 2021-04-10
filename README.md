@@ -20,10 +20,96 @@
 
 
 ## 4. Business로직의 분리
-
+![folder](https://user-images.githubusercontent.com/47292546/114265214-85dba380-9a2a-11eb-937e-6d86cf658288.PNG)
 
 
 ## 5. Log처리를 이용한 유지보수 및 어플리케이션 관리
+
+```
+직접 앱을 한달간 운영을 해보면서,
+기존에 개발할 때와는 달리 error를 찾기가 힘들었다.
+그렇기 때문에 logger를 이용한 로그처리로 인하여 app문제에 있어 좀더 유연하게 대처 할 수 있었다
+
+import * as winston from "winston";
+import winstonDaily from "winston-daily-rotate-file";
+
+const logDir = "./logs"
+const {combine, timestamp, printf} = winston.format;
+
+const logFormat = printf(info =>{
+    return `${info.timestamp} (${info.level}) => ${info.message}`;
+});
+
+/*
+    log level
+    error : 0
+    warn : 1
+    info : 2
+    http : 3
+    verbose : 4
+    debug : 5
+    silly : 6
+*/
+
+const logger = winston.createLogger({
+    format : combine(
+        timestamp({
+            format:"YYYY-MM-DD HH:mm:ss",
+        }),
+        logFormat
+    ),
+
+    transports:[
+        //info
+        new winstonDaily({
+            level : "info",
+            datePattern : "YYYY-MM-DD",
+            dirname : logDir,
+            filename : "info.log",
+            maxFiles : 10, //10일치 
+            zippedArchive : true
+        }),
+
+        //error
+        new winstonDaily({
+            level : "error",
+            datePattern : "YYYY-MM-DD",
+            dirname : logDir,
+            filename : "Error.log",
+            maxFiles : 10,
+            zippedArchive : true
+        })
+    ]
+});
+
+export default logger;
+```
+
+```
+// log처리를 도입한 /service/statistic.ts
+
+public async getData({id, prevDate, nextDate} : TStatistic) : Promise<any>{
+            try{
+                this.dbConn = await pool.getConnection();
+                let chart : Array<any> = new Array<any>(3);
+                chart[0] = await this.dbConn.query(`${STATISTICS_BARCHART}`,[id, prevDate, nextDate]);
+                chart[1] = await this.dbConn.query(`${STATISTICS_PIECHART}`,[id, prevDate, nextDate]);
+                chart[2] = await this.dbConn.query(`${STATISTICS_LIST}`,[id, prevDate, nextDate]);
+
+                for(let i in chart){
+                    if(this.isEmpty(chart[i][0][0])) chart[i] = 0;
+                    else chart[i] = chart[i][0][0];
+                }
+
+                return {chart};
+            }catch(e){
+                logger.error(`statistic getData error : ${e}`);
+            }finally{
+                await this.dbConn.release();
+            }
+    }
+```
+
 
 ## 6. pm2를 이용한 운영
 
