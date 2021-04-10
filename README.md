@@ -16,9 +16,12 @@
 ## 3. TDD를 이용한 개발
 <a href="https://blog.naver.com/zkfmapf123/222146785347">왜? tdd를 도입하였나?(네이버 블로그)</a>
 
+![ghdnljs](https://user-images.githubusercontent.com/47292546/114265185-647ab780-9a2a-11eb-96cf-17836b338280.PNG)
 
 
 ## 4. Business로직의 분리
+
+
 
 ## 5. Log처리를 이용한 유지보수 및 어플리케이션 관리
 
